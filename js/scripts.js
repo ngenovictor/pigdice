@@ -1,18 +1,31 @@
 // Business Logic
 var playerOne;
 var playerTwo;
-function Player(name, score){
+var sessionTotal = 0;
+function Player(name){
   /*The player Object*/
   this.name = name;
-  this.score = score;
+  this.score = 0;
+  this.turn = 0;
 };
+
+function assignStartTurn(){
+  var pick = Math.floor(Math.random() * 2)+1;
+  if (pick===2){
+    playerTwo.turn =1;
+    alert("Player Two Will Start");
+  }else{
+    playerOne.turn =1;
+    alert("Player Two Will Start")
+  }
+};
+
 function rollDice(){
-  
-
+  return Math.floor(Math.random() * 6)+1;
 
 };
-Player.prototype.play = function (dice) {
-  return this.score +=dice;
+Player.prototype.play = function (diceValue) {
+
 };
 
 // This will initialize the game
@@ -26,6 +39,7 @@ function initializeGame(){
     $("section#game-section .game .game-wrapper").text("Game will start shortly ");
     $("section#game-section .game .game-wrapper").append(playerTwo.name+' vs '+playerOne.name);
     startGame();
+    assignStartTurn();
   }
 };
 // This will start the game. Show zero scores
@@ -45,23 +59,67 @@ function startGame(){
       "<h2>"+playerOne.name+"</h2>"+
       "<p>click here to roll dice</p>"+
       "<h3></h3>"+
+    "</div>"+
+    "<div id='holdone'>"+
+      "<p>Hold</p>"+
     "</div>"
+
   );
-
-  $("div#playone").click(function(){
-    alert("One");
-  });
-
   $("section#game-section .two").append(
     "<div id='playtwo' class='try'>"+
       "<h2>"+playerTwo.name+"</h2>"+
       "<p>click here to roll dice</p>"+
       "<h3></h3>"+
+    "</div>"+
+    "<div id='holdtwo'>"+
+      "<p>Hold</p>"+
     "</div>"
   );
 
-  $("div#playtwo").click(function(){
 
+  $("div#playone").click(function(){
+    var diceRoll = rollDice();
+    if(playerOne.turn===0){
+      alert("No it's not your turn")
+    }else{
+      $(this).find("h3").text(diceRoll);
+      if(diceRoll>1){
+        sessionTotal+=diceRoll
+        playerOne.score+=diceRoll
+
+      }else if(playerOne.score+diceRoll>100){
+        alert("Player One Has Won")
+      }else{
+        playerOne.score-=sessionTotal
+        sessionTotal=0
+        playerOne.turn=0;
+        playerTwo.turn=1;
+      }
+    }
+
+    playerOne.play(diceRoll);
+  });
+
+
+
+  $("div#playtwo").click(function(){
+    var diceRoll = rollDice();
+    if(playerTwo.turn===0){
+      alert("Not your turn");
+    }else{
+      $(this).find("h3").text(diceRoll);
+    }
+  });
+
+
+
+  $("div#holdone").click(function(){
+    playerOne.turn=0;
+    playerTwo.turn=1;
+  });
+  $("div#holdtwo").click(function(){
+    playerTwo.turn=0;
+    playerOne.turn=1;
   });
 
 };
@@ -75,15 +133,14 @@ $(document).ready(function(){
   $("form#player-one").submit(function(event){
     event.preventDefault();
     var nameOne = $("form#player-one input.name").val();
-    playerOne = new Player(nameOne,0);
-    console.log(playerOne.name)
+    playerOne = new Player(nameOne);
     initializeGame();
   });
 
   $("form#player-two").submit(function(event){
     event.preventDefault();
     var nameTwo = $("form#player-two input.name").val();
-    playerTwo = new Player(nameTwo, 0);
+    playerTwo = new Player(nameTwo);
     console.log(playerTwo.name)
     initializeGame();
   });
