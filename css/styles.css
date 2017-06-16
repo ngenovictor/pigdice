@@ -62,3 +62,6 @@ section#game-section .try{
   cursor: pointer;
   clear: both;
 }
+section#about{
+  margin: 20px;
+}

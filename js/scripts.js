@@ -80,7 +80,7 @@ function startGame(){
   $("div#playone").click(function(){
     var diceRoll = rollDice();
     if(playerOne.turn===0){
-      alert("Player Two's Turn")
+      alert("Player Two's Turn");
     }else{
       $(this).find("h3").text(diceRoll);
       if(diceRoll>1){
