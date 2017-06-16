@@ -33,7 +33,7 @@
 > * Player.play choses who to start
 
 ### 3. Contributors
-[Ngeno](https://www.github.com)
+[Ngeno](https://www.github.com/ngenovictor)
 
 
 
