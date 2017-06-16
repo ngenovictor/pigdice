@@ -20,10 +20,18 @@
 
 
 ### 2. Specs
-> *
-> *
-> *
-> *
+> * Create a Player object(name, points)
+> * Create a UI for the game
+> * Create the play prototype
+> * Test on console
+> * Create the User Interface Logic
+> * Player.play generates random numbers between 1 - 6
+> * Player.play changes value of sccore
+> * Player.play assigns turns
+> * Player.play checks if there is already a winner
+> * Player.play checks if the dice roll result was 1 and changes turns
+> * Player.play choses who to start
+
 ### 3. Contributors
 [Ngeno](https://www.github.com)
 
