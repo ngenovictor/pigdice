@@ -52,3 +52,13 @@ section#game-section .try{
   margin: 0;
   cursor: pointer;
 }
+#restart{
+  height:50px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid rgb(110,110,110);
+  background-color: rgb(102, 0, 77);
+  cursor: pointer;
+  clear: both;
+}

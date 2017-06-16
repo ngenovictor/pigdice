@@ -86,18 +86,21 @@ function startGame(){
       if(diceRoll>1){
         sessionTotal+=diceRoll
         playerOne.score+=diceRoll
+        $("#score-one h2").text(playerOne.score)
 
-      }else if(playerOne.score+diceRoll>100){
+      }else if(playerOne.score+sessionTotal>100){
+        sessionTotal+=diceRoll
+        playerOne.score+=diceRoll
+        $("#score-one h2").text(playerOne.score)
         alert("Player One Has Won")
       }else{
-        playerOne.score-=sessionTotal
-        sessionTotal=0
+        playerOne.score-=sessionTotal;
+        $("#score-one h2").text(playerOne.score);
+        sessionTotal-=sessionTotal;
         playerOne.turn=0;
         playerTwo.turn=1;
       }
     }
-
-    playerOne.play(diceRoll);
   });
 
 
@@ -105,9 +108,26 @@ function startGame(){
   $("div#playtwo").click(function(){
     var diceRoll = rollDice();
     if(playerTwo.turn===0){
-      alert("Not your turn");
+      alert("No it's not your turn")
     }else{
       $(this).find("h3").text(diceRoll);
+      if(diceRoll>1){
+        sessionTotal+=diceRoll
+        playerTwo.score+=diceRoll
+        $("#score-two h2").text(playerTwo.score)
+
+      }else if(playerTwo.score+sessionTotal>100){
+        sessionTotal+=diceRoll
+        playerTwo.score+=diceRoll
+        $("#score-two h2").text(playerTwo.score)
+        alert("Player Two Has Won")
+      }else{
+        playerTwo.score-=sessionTotal;
+        $("#score-two h2").text(playerTwo.score);
+        sessionTotal-=sessionTotal;
+        playerTwo.turn=0;
+        playerOne.turn=1;
+      }
     }
   });
 
@@ -116,10 +136,12 @@ function startGame(){
   $("div#holdone").click(function(){
     playerOne.turn=0;
     playerTwo.turn=1;
+    sessionTotal=0
   });
   $("div#holdtwo").click(function(){
     playerTwo.turn=0;
     playerOne.turn=1;
+    sessionTotal=0
   });
 
 };
