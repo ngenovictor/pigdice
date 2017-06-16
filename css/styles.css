@@ -1,0 +1,12 @@
+section#game-section{
+  text-align: center;
+}
+section#game-section .game{
+  height:300px;
+  display: table;
+  background-color: rgb(0, 255, 255);
+}
+section#game-section .game .game-wrapper{
+  display: table-cell;
+  vertical-align: middle;
+}
