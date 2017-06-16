@@ -7,14 +7,16 @@ function Player(name, score){
   this.score = score;
 };
 function rollDice(){
-  /*This will generate the random numbers*/
+  
 
 
 };
+Player.prototype.play = function (dice) {
+  return this.score +=dice;
+};
+
+// This will initialize the game
 function initializeGame(){
-  /*
-  On sign Up this will start the game
-  */
   if (typeof playerOne === "undefined"){
     $("section#game-section .game .game-wrapper").text("Player One to Sign Up");
 
@@ -23,15 +25,48 @@ function initializeGame(){
   }else{
     $("section#game-section .game .game-wrapper").text("Game will start shortly ");
     $("section#game-section .game .game-wrapper").append(playerTwo.name+' vs '+playerOne.name);
-
+    startGame();
   }
 };
-Player.prototype.play = function (dice) {
-  /*
-  This will work on all the play scenarios
-  */
-  return this.score +=dice;
+// This will start the game. Show zero scores
+function startGame(){
+  $("section#game-section .game .game-wrapper").remove().fadeIn(4000, function(){
+    $("section#game-section .game .game-board").show("");
+    $("section#game-section .game .game-board").css({"display":"table-cell"});
+  });
+  $("div#score-one h2").text(playerOne.score);
+  $("div#score-two h2").text(playerTwo.score);
+  $("section#game-section .one").text("");
+  $("section#game-section .two").text("");
+
+
+  $("section#game-section .one").append(
+    "<div id='playone' class='try' >"+
+      "<h2>"+playerOne.name+"</h2>"+
+      "<p>click here to roll dice</p>"+
+      "<h3></h3>"+
+    "</div>"
+  );
+
+  $("div#playone").click(function(){
+    alert("One");
+  });
+
+  $("section#game-section .two").append(
+    "<div id='playtwo' class='try'>"+
+      "<h2>"+playerTwo.name+"</h2>"+
+      "<p>click here to roll dice</p>"+
+      "<h3></h3>"+
+    "</div>"
+  );
+
+  $("div#playtwo").click(function(){
+
+  });
+
 };
+
+
 
 // User Interface Logic
 $(document).ready(function(){
@@ -52,5 +87,9 @@ $(document).ready(function(){
     console.log(playerTwo.name)
     initializeGame();
   });
+
+
+
+
 
 });
